@@ -1,0 +1,27 @@
+<form class="form-inline search-margin">
+    <input class="form-control search-text" name="searchInput" placeholder="Search for type" #searchInput="ngModel" [(ngModel)]="searchText">
+    <button class="btn btn-outline-primary" (click)="searchText=''">X</button>
+</form>
+<table class="table table-sm">
+<thead>
+    <th>Type</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Relationship</th>
+</thead>
+<ng-container *ngFor="let item of itemsArray">
+<tr class="table" *ngIf="filterCondition(item)">
+    <td>{{item.type}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.description}}</td>
+    <td>{{item.relationship}}</td>
+    <td>
+        <button class="btn btn-outline-info" (click)="itemService.focusForm(item)">Edit</button>
+        <button class="btn btn-outline-danger" (click)="onDelete(item.$key)">Delete</button>
+    </td>
+</tr>
+</ng-container>
+</table>
+<div class="alert alert-danger" *ngIf="showDeleteMessage">
+    Deleted successfully.
+</div>
